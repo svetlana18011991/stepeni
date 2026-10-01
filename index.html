@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Свойства степеней с натуральным показателем — интерактивный тренажёр</title>
+<meta name="description" content="Интерактивный тренажёр по свойствам степеней с натуральным показателем: теория, задания от простого к сложному, мгновенная проверка и прогресс." />
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  chtml: { scale: 1.02 },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<style>
+:root{
+  --ink:#173b5f;--teal:#3d9fa5;--blue:#8bd2e3;--mint:#a7d7c0;--peach:#f3bca8;--lav:#b9ace6;
+  --paper:#fffdf8;--muted:#64748b;--line:#dbe8ee;--ok:#158466;--bad:#bf4f4f;--shadow:0 12px 34px rgba(31,76,103,.12)
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;color:#1f2937;background:var(--paper);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.46}
+body:before,body:after{content:"";position:fixed;z-index:-3;filter:blur(4px);border-radius:48% 52% 60% 40%;pointer-events:none}
+body:before{width:420px;height:300px;right:-120px;top:-90px;background:radial-gradient(circle at 30% 35%,rgba(139,210,227,.34),transparent 61%),radial-gradient(circle at 70% 65%,rgba(185,172,230,.24),transparent 58%)}
+body:after{width:420px;height:280px;left:-140px;bottom:-70px;background:radial-gradient(circle at 45% 35%,rgba(167,215,192,.30),transparent 60%),radial-gradient(circle at 70% 70%,rgba(243,188,168,.24),transparent 56%)}
+a{color:#187c86} button,input,select{font:inherit}
+.app{min-height:100vh;display:grid;grid-template-columns:250px 1fr}
+.sidebar{position:sticky;top:0;height:100vh;padding:28px 18px 20px;border-right:1px solid rgba(111,163,184,.18);background:rgba(255,255,255,.76);backdrop-filter:blur(12px);overflow:auto}
+.brand{font-family:Georgia,"Times New Roman",serif;color:var(--ink);font-size:19px;font-weight:700;line-height:1.18;margin:0 8px 24px}.brand small{display:block;margin-top:6px;font:600 11px/1.2 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
+.navbtn{width:100%;text-align:left;border:0;background:transparent;color:var(--ink);font-weight:700;padding:12px 13px;border-radius:14px;margin:3px 0;cursor:pointer}.navbtn:hover,.navbtn.active{background:linear-gradient(90deg,rgba(139,210,227,.22),rgba(185,172,230,.15));box-shadow:inset 3px 0 0 var(--teal)}
+.sidebar .mini{font-size:12px;color:var(--muted);margin:18px 10px}.site{display:block;margin:15px 10px 0;font-size:12px;word-break:break-word}
+.main{padding:26px 34px 70px;max-width:1320px;width:100%;margin:auto}
+.hero{position:relative;overflow:hidden;border:1px solid rgba(100,166,188,.22);background:rgba(255,255,255,.80);box-shadow:var(--shadow);border-radius:26px;padding:28px 30px 22px;margin-bottom:18px}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;filter:blur(1px);opacity:.6}.hero:before{width:210px;height:140px;right:-40px;top:-50px;background:radial-gradient(circle at 35% 40%,rgba(139,210,227,.42),transparent 60%),radial-gradient(circle at 70% 70%,rgba(185,172,230,.34),transparent 60%)}.hero:after{width:180px;height:120px;left:-55px;bottom:-50px;background:radial-gradient(circle at 50% 35%,rgba(243,188,168,.33),transparent 60%),radial-gradient(circle at 70% 70%,rgba(167,215,192,.30),transparent 60%)}
+.eyebrow{color:var(--teal);font-weight:800;letter-spacing:.09em;text-transform:uppercase;font-size:12px}.hero h1{font-family:Georgia,"Times New Roman",serif;color:var(--ink);font-size:clamp(30px,4vw,50px);line-height:1.05;margin:8px 0 7px}.hero h1 span{color:#278a93}.hero p{margin:0;color:var(--muted);max-width:800px}
+.stats{display:grid;grid-template-columns:auto 1fr auto auto;gap:12px;align-items:center;margin:18px 0 2px;padding:12px 14px;border:1px solid var(--line);border-radius:18px;background:rgba(249,253,255,.78)}
+.progress{height:12px;border-radius:99px;background:#e9f1f5;overflow:hidden}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--teal));border-radius:99px;transition:.35s}.stat{font-weight:800;color:var(--ink);white-space:nowrap}.reset{border:1px solid #bfdbe2;background:white;color:var(--ink);padding:8px 12px;border-radius:11px;cursor:pointer;font-weight:700}.reset:hover{background:#f3fbfd}
+.panel{display:none}.panel.active{display:block}.section-title{font-family:Georgia,"Times New Roman",serif;color:var(--ink);font-size:27px;margin:22px 0 12px}.section-sub{color:var(--muted);margin:-7px 0 16px}
+.theory-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.theory-card{background:rgba(255,255,255,.86);border:1px solid var(--line);border-radius:20px;padding:18px 20px;box-shadow:0 8px 24px rgba(40,88,110,.07)}.theory-card h3{margin:0 0 8px;color:var(--ink);font-family:Georgia,serif}.formula{font-size:1.18rem;background:linear-gradient(90deg,rgba(139,210,227,.14),rgba(185,172,230,.10));border-radius:13px;padding:10px 12px;text-align:center;margin:9px 0;color:#173b5f}.warn{border-left:4px solid var(--peach);padding-left:12px}.tip{border-left:4px solid var(--mint);padding-left:12px}
+.level-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:22px;margin-bottom:10px}.level-chip{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(90deg,rgba(139,210,227,.20),rgba(167,215,192,.18));color:var(--ink);font-weight:800;border:1px solid rgba(80,164,172,.18);padding:8px 13px;border-radius:999px}.stars{color:#e2a53b;font-size:15px;letter-spacing:1px}
+.tasks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.task{position:relative;background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:20px;padding:16px 17px 15px;box-shadow:0 8px 24px rgba(40,88,110,.07);min-height:190px}.task.correct{border-color:rgba(21,132,102,.40);box-shadow:0 10px 28px rgba(21,132,102,.10)}.task.wrong{border-color:rgba(191,79,79,.35)}.task-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}.num{font-weight:900;color:var(--ink);background:rgba(139,210,227,.24);border-radius:999px;padding:5px 10px}.kind{font-size:11px;color:var(--muted);font-weight:700}.prompt{font-family:Georgia,"Times New Roman",serif;color:#20344a;font-size:18px;margin:7px 0 12px;min-height:46px}.answers{display:flex;flex-wrap:wrap;gap:8px}.answer-input{min-width:130px;flex:1;border:1px solid #b9d4de;background:white;padding:10px 11px;border-radius:11px;outline:none}.answer-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(61,159,165,.10)}.choice{border:1px solid #c7dbe3;background:white;color:#20344a;padding:9px 11px;border-radius:12px;cursor:pointer;text-align:left}.choice:hover{background:#f4fbfd}.choice.selected{border-color:#6bb6c0;background:#edf9fa}.choice.good{border-color:#5bb397;background:#eaf8f2}.choice.bad{border-color:#d38484;background:#fff0f0}.check{margin-top:11px;border:0;background:linear-gradient(135deg,#6b66dc,#8e69e8);color:white;font-weight:800;padding:9px 15px;border-radius:12px;cursor:pointer;box-shadow:0 6px 14px rgba(107,102,220,.22)}.check:disabled{opacity:.45;cursor:default}.hintbtn{margin-top:11px;margin-left:7px;border:1px solid #d3e3e9;background:white;color:#31556c;font-weight:700;padding:8px 12px;border-radius:12px;cursor:pointer}.feedback{margin-top:10px;padding:9px 11px;border-radius:12px;font-size:13px;display:none}.feedback.show{display:block}.feedback.ok{background:#eaf8f2;color:#11664f}.feedback.no{background:#fff0f0;color:#974141}.hint{display:none;margin-top:8px;color:#6b5b2d;background:#fff8df;padding:8px 10px;border-radius:11px;font-size:13px}.hint.show{display:block}.solution{display:none;margin-top:8px;color:#365a6f;background:#eff8fb;padding:8px 10px;border-radius:11px;font-size:13px}.solution.show{display:block}
+
+/* ===== Индивидуальный черновик в каждом задании ===== */
+.task.scratch-open{
+  grid-column:1/-1;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(360px,430px);
+  gap:14px;
+  align-items:stretch;
+}
+.task-left{min-width:0}
+.task-top{gap:8px}
+.task-meta{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-left:auto;min-width:0}
+.scratch-toggle{
+  width:38px;height:38px;flex:0 0 38px;padding:0;
+  display:grid;place-items:center;border:1.5px solid #8fcfd6;border-radius:12px;
+  background:linear-gradient(180deg,#ffffff,#edf9fb);color:#287a83;
+  cursor:pointer;font-size:19px;line-height:1;box-shadow:0 4px 12px rgba(40,122,131,.10)
+}
+.scratch-toggle:hover{background:#e6f7f8}
+.scratch-toggle.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+.scratch-panel{
+  display:none;min-height:410px;overflow:hidden;border-radius:18px;
+  border:2px solid #9bd6dc;background:#fff;color:#203f52;
+  box-shadow:0 16px 40px rgba(40,88,110,.14);flex-direction:column
+}
+.task.scratch-open .scratch-panel{display:flex}
+.scratch-head{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:9px 10px;background:linear-gradient(180deg,#f7fcfd,#eef8fa);
+  border-bottom:1px solid #d4e7eb;flex-wrap:wrap
+}
+.scratch-title{font-weight:900;font-size:16px;color:var(--ink)}
+.scratch-controls{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.scratch-controls label{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:800;color:#536b7b}
+.scratch-controls input[type="color"]{width:34px;height:30px;padding:2px;border:1px solid #bdd4db;border-radius:8px;background:white;cursor:pointer}
+.scratch-controls input[type="range"]{width:70px;accent-color:var(--teal)}
+.scratch-tool{
+  min-width:34px;height:31px;border:1px solid #bdd4db;border-radius:8px;background:white;
+  color:#31556c;cursor:pointer;font-weight:800;padding:0 8px
+}
+.scratch-tool:hover{background:#f3fafc}
+.scratch-tool.active{background:#e3f6f7;border-color:var(--teal);color:#176d75}
+.scratch-close{background:#fff2f2;border-color:#e7c0c0;color:#944646}
+.scratch-body{
+  position:relative;flex:1;min-height:340px;overflow:hidden;background-color:#fff;
+  background-image:linear-gradient(#dcecef 1px,transparent 1px),linear-gradient(90deg,#dcecef 1px,transparent 1px);
+  background-size:28px 28px;cursor:crosshair;touch-action:none
+}
+.scratch-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2;touch-action:none}
+.scratch-help{padding:7px 10px;background:#f5fbfc;border-top:1px solid #dcecef;color:#687e8c;font-size:11px}
+@media(max-width:1100px){
+  .task.scratch-open{grid-template-columns:1fr}
+  .scratch-panel{min-height:380px}
+}
+@media(max-width:900px){
+  .task.scratch-open{grid-column:auto}
+  .scratch-panel{min-height:360px}
+}
+@media(max-width:520px){
+  .task-meta{gap:5px}.kind{display:none}.scratch-toggle{width:36px;height:36px;flex-basis:36px;font-size:18px}
+  .scratch-head{align-items:flex-start}.scratch-controls{width:100%}.scratch-body{min-height:320px}
+}
+@media print{.scratch-toggle,.scratch-panel{display:none!important}.task.scratch-open{display:block!important}}
+
+.result-card{background:white;border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:var(--shadow);max-width:800px}.bigscore{font-family:Georgia,serif;font-size:44px;color:var(--ink);font-weight:800}.badge-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.badge{padding:9px 13px;border-radius:999px;background:linear-gradient(90deg,rgba(167,215,192,.25),rgba(139,210,227,.20));font-weight:800;color:var(--ink)}
+.footer{margin-top:34px;padding-top:14px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:12px}.footer a{font-weight:800}.pdfbtn{display:inline-flex;align-items:center;gap:7px;text-decoration:none;border:1px solid #bed9e1;background:white;padding:9px 13px;border-radius:12px;color:var(--ink);font-weight:800}
+@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{position:relative;height:auto;display:flex;gap:5px;align-items:center;overflow:auto;padding:11px 12px;border-right:0;border-bottom:1px solid var(--line)}.brand{display:none}.navbtn{width:auto;white-space:nowrap;margin:0}.sidebar .mini,.sidebar .site{display:none}.main{padding:18px 14px 50px}.stats{grid-template-columns:1fr 1fr}.progress{grid-column:1/-1;order:3}.tasks,.theory-grid{grid-template-columns:1fr}.hero{padding:22px 19px}.task{min-height:0}}
+@media print{.sidebar,.reset,.check,.hintbtn,.pdfbtn{display:none!important}.app{display:block}.main{padding:0}.task,.theory-card,.hero{box-shadow:none}.panel{display:block!important}.tasks{grid-template-columns:1fr 1fr}.feedback,.hint,.solution{display:none!important}}
+
+/* ===== Конструктор печатных карточек ===== */
+.generator-intro{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:14px;padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(110deg,rgba(139,210,227,.13),rgba(185,172,230,.10),rgba(243,188,168,.08))}
+.generator-intro p{margin:0;color:var(--muted);max-width:800px}.generator-total{white-space:nowrap;font-weight:900;color:var(--ink);background:white;border:1px solid #cfe1e7;border-radius:999px;padding:8px 12px}
+.generator-config{background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:22px;box-shadow:0 8px 24px rgba(40,88,110,.07);overflow:hidden}
+.generator-fields{display:grid;grid-template-columns:minmax(220px,2fr) minmax(110px,.7fr) minmax(220px,1.2fr);gap:12px;padding:15px 16px;border-bottom:1px solid var(--line);background:#fbfeff}
+.gen-field label{display:block;font-size:11px;font-weight:900;color:#587083;text-transform:uppercase;letter-spacing:.055em;margin:0 0 5px}.gen-field input[type="text"],.gen-field input[type="number"]{width:100%;border:1px solid #bfd8e0;border-radius:11px;background:#fff;padding:10px 11px;color:var(--ink);outline:none}.gen-field input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(61,159,165,.10)}
+.gen-options{display:flex;align-items:center;gap:15px;flex-wrap:wrap;padding:11px 16px;border-bottom:1px solid var(--line);font-size:13px;color:#415d71}.gen-options label{display:inline-flex;align-items:center;gap:7px;font-weight:700}.gen-options input{accent-color:var(--teal)}
+.proto-group-head{padding:11px 16px 7px;font-family:Georgia,"Times New Roman",serif;font-size:19px;font-weight:800;color:var(--ink);background:linear-gradient(90deg,rgba(139,210,227,.13),transparent)}
+.proto-list{display:grid;grid-template-columns:1fr}.proto-row{display:grid;grid-template-columns:34px minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:10px 15px;border-top:1px solid #edf3f5}.proto-row:hover{background:#fbfeff}.proto-check{width:19px;height:19px;accent-color:var(--teal);cursor:pointer}.proto-name{min-width:0}.proto-title{font-weight:850;color:#24445e}.proto-note{font-size:11px;color:var(--muted);margin-top:2px}.bank-badge{font-size:11px;font-weight:900;color:#26747b;background:#edf9f8;border:1px solid #bfe3df;padding:5px 8px;border-radius:999px;white-space:nowrap}
+.qtybox{display:flex;align-items:center;border:1px solid #c9dfe6;background:white;border-radius:11px;overflow:hidden}.qtybtn{width:31px;height:31px;border:0;background:#f4fafc;color:var(--ink);font-size:18px;font-weight:900;cursor:pointer}.qtybtn:hover{background:#e6f5f8}.qtyinput{width:45px;height:31px;border:0;border-left:1px solid #e2edf1;border-right:1px solid #e2edf1;text-align:center;font-weight:850;color:var(--ink);outline:none;-moz-appearance:textfield}.qtyinput::-webkit-outer-spin-button,.qtyinput::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}.proto-row:not(.selected) .qtybox{opacity:.45}
+.gen-toolbar{position:sticky;bottom:0;z-index:8;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;padding:13px 15px;border-top:1px solid #d7e7ec;background:rgba(255,255,255,.94);backdrop-filter:blur(10px)}.gen-toolbar-left,.gen-toolbar-right{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.gen-btn{border:1px solid #bfd9e1;background:white;color:var(--ink);font-weight:850;padding:10px 13px;border-radius:12px;cursor:pointer}.gen-btn:hover{background:#f4fbfd}.gen-btn.primary{border:0;background:linear-gradient(135deg,#5d9fac,#7567dc);color:white;box-shadow:0 7px 17px rgba(78,115,172,.22)}.gen-btn.print{border:0;background:linear-gradient(135deg,#278b75,#45a798);color:white}.gen-btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.card-preview-wrap{margin-top:20px}.card-preview-wrap.empty{display:none}.card-preview-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:9px}.card-preview-head h3{margin:0;color:var(--ink);font-family:Georgia,serif;font-size:23px}.card-print-note{font-size:12px;color:var(--muted)}
+.card-sheet{background:#fff;border:1px solid #cfe1e7;border-radius:20px;box-shadow:var(--shadow);padding:22px 25px;margin-bottom:16px;position:relative;overflow:hidden}.card-sheet:before{content:"";position:absolute;width:190px;height:120px;right:-45px;top:-50px;background:radial-gradient(circle,rgba(139,210,227,.20),transparent 67%);pointer-events:none}.card-head{position:relative;display:grid;grid-template-columns:1fr auto;gap:10px;border-bottom:2px solid #cde3e8;padding-bottom:11px;margin-bottom:13px}.card-kicker{font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:900;color:var(--teal)}.card-title{font-family:Georgia,"Times New Roman",serif;font-size:25px;font-weight:900;color:var(--ink);line-height:1.12}.card-variant{font-weight:900;color:var(--ink);align-self:end}.card-meta-line{grid-column:1/-1;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:12px;color:#526b7d}.card-meta-line span{min-width:220px;border-bottom:1px solid #9db8c4;padding-bottom:2px}.generated-tasks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px;row-gap:0;counter-reset:cardtask}.generated-task{counter-increment:cardtask;display:grid;grid-template-columns:27px 1fr;gap:6px;align-items:start;padding:7px 0;border-bottom:1px dotted #dce7eb;break-inside:avoid;page-break-inside:avoid}.generated-task:before{content:counter(cardtask) ".";font-weight:900;color:var(--ink)}.generated-task .gq{font-family:Georgia,"Times New Roman",serif;color:#233b50;font-size:15px}.generated-task .proto-caption{display:block;font:700 9px/1.25 Inter,sans-serif;color:#78909e;text-transform:uppercase;letter-spacing:.035em;margin-bottom:2px}.card-brand{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:12px;padding-top:8px;border-top:1px solid #dce8ec;font-size:10px;color:#6a8190}.card-brand a{font-weight:800;color:#187c86;text-decoration:none}.answer-key{background:#fff;border:1px solid #cfe1e7;border-radius:20px;box-shadow:0 8px 24px rgba(40,88,110,.07);padding:20px 24px}.answer-key h3{font-family:Georgia,serif;color:var(--ink);margin:0 0 10px;font-size:22px}.answer-key-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 18px}.key-item{display:grid;grid-template-columns:28px 1fr;gap:6px;border-bottom:1px dotted #dfe9ed;padding:4px 0;font-size:12px}.key-item b{color:var(--ink)}
+@media(max-width:900px){.generator-fields{grid-template-columns:1fr}.proto-row{grid-template-columns:30px minmax(0,1fr) auto}.bank-badge{display:none}.generated-tasks{grid-template-columns:1fr}.answer-key-grid{grid-template-columns:1fr 1fr}.gen-toolbar{position:relative}.card-head{grid-template-columns:1fr}.card-variant{justify-self:start}}
+@media(max-width:540px){.proto-row{grid-template-columns:28px minmax(0,1fr)}.qtybox{grid-column:2}.answer-key-grid{grid-template-columns:1fr}.generator-total{white-space:normal}}
+@page{size:A4;margin:12mm}
+@media print{
+  body.printing-card{background:#fff!important}.printing-card:before,.printing-card:after{display:none!important}
+  body.printing-card .sidebar,body.printing-card .hero,body.printing-card .footer,body.printing-card .panel:not(#generator),body.printing-card #generator>.section-title,body.printing-card #generator>.section-sub,body.printing-card .generator-intro,body.printing-card .generator-config,body.printing-card .card-preview-head{display:none!important}
+  body.printing-card .app{display:block!important}.printing-card .main{padding:0!important;max-width:none!important;margin:0!important}.printing-card #generator{display:block!important}.printing-card .card-preview-wrap{display:block!important;margin:0!important}.printing-card .card-sheet,.printing-card .answer-key{border:0!important;box-shadow:none!important;border-radius:0!important;margin:0!important;padding:0!important}.printing-card .card-sheet:before{display:none!important}.printing-card .card-title{font-size:20pt}.printing-card .generated-task .gq{font-size:11.2pt}.printing-card .generated-tasks{column-gap:8mm}.printing-card .answer-key{break-before:page;page-break-before:always}.printing-card .answer-key-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.printing-card .card-meta-line{font-size:9pt}.printing-card .proto-caption{font-size:7pt}
+}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">Шкатулка математических интерактивов<small>Светланы Быковой</small></div>
+    <button class="navbtn active" data-target="theory">📘 Теория</button>
+    <button class="navbtn" data-target="practice">🎯 Тренировка</button>
+    <button class="navbtn" data-target="advanced">⭐ Продвинутые</button>
+    <button class="navbtn" data-target="generator">🧩 Сгенерировать карточку</button>
+    <button class="navbtn" data-target="result">🏆 Итог</button>
+    <div class="mini">Прогресс сохраняется в браузере автоматически.</div>
+    <a class="site" href="https://shkatulka.sistema-math.ru/" target="_blank" rel="noopener">shkatulka.sistema-math.ru</a>
+  </aside>
+
+  <main class="main">
+    <section class="hero">
+      <div class="eyebrow">Интерактивный тренажёр • 7 класс</div>
+      <h1>Свойства степеней <span>с натуральным показателем</span></h1>
+      <p>От базовых правил к сильным задачам: ввод ответа, выбор варианта, «верно/неверно», сравнение степеней, уравнения, делимость и последняя цифра.</p>
+      <div class="stats">
+        <div class="stat" id="progressText">Пройдено: 0 из 45</div>
+        <div class="progress"><i id="progressBar"></i></div>
+        <div class="stat" id="scoreText">Баллы: 0</div>
+        <button class="reset" id="resetBtn" type="button">Сбросить</button>
+      </div>
+    </section>
+
+    <section class="panel active" id="theory">
+      <h2 class="section-title">Краткая теория</h2>
+      <p class="section-sub">Все свойства, которые нужны для работы с заданиями страницы.</p>
+      <div class="theory-grid">
+        <article class="theory-card"><h3>Произведение степеней</h3><div class="formula">\(a^m\cdot a^n=a^{m+n}\)</div><p>При одинаковом основании показатели <b>складываются</b>.</p></article>
+        <article class="theory-card"><h3>Частное степеней</h3><div class="formula">\(\dfrac{a^m}{a^n}=a^{m-n}\)</div><p>При \(a\ne0\) показатели <b>вычитаются</b>.</p></article>
+        <article class="theory-card"><h3>Степень степени</h3><div class="formula">\((a^m)^n=a^{mn}\)</div><p>Показатели <b>перемножаются</b>.</p></article>
+        <article class="theory-card"><h3>Степень произведения</h3><div class="formula">\((ab)^n=a^n b^n\)</div><p>Одинаковый показатель можно распределить по множителям и собрать обратно.</p></article>
+        <article class="theory-card"><h3>Степень частного</h3><div class="formula">\(\left(\dfrac ab\right)^n=\dfrac{a^n}{b^n}\)</div><p>При \(b\ne0\). Свойство также удобно применять справа налево.</p></article>
+        <article class="theory-card"><h3>Знаки и скобки</h3><div class="formula">\((-a)^{2k}=a^{2k},\quad (-a)^{2k+1}=-a^{2k+1}\)</div><p class="warn"><b>Важно:</b> \((-2)^4=16\), но \(-2^4=-16\).</p></article>
+        <article class="theory-card"><h3>Приведение к одному основанию</h3><div class="formula">\(4=2^2,\;8=2^3,\;9=3^2,\;27=3^3,\;25=5^2,\;125=5^3\)</div><p class="tip">Это главный приём в сложных вычислениях, сравнениях и уравнениях.</p></article>
+        <article class="theory-card"><h3>Чего делать нельзя</h3><div class="formula">\(a^m+a^n\ne a^{m+n},\qquad (a+b)^n\ne a^n+b^n\)</div><p>Свойства степеней относятся к <b>умножению, делению и возведению в степень</b>, но не к сложению.</p></article>
+      </div>
+      <p style="margin-top:18px"><a class="pdfbtn" href="рабочая_тетрадь_степени_акварель.pdf">📄 Открыть печатную рабочую тетрадь</a></p>
+    </section>
+
+    <section class="panel" id="practice">
+      <h2 class="section-title">Тренировка от простого к сложному</h2>
+      <p class="section-sub">Сначала одно свойство за раз, затем их сочетание.</p>
+      <div id="practiceRoot"></div>
+    </section>
+
+    <section class="panel" id="advanced">
+      <h2 class="section-title">Продвинутые задачи</h2>
+      <p class="section-sub">Сравнения больших степеней, уравнения, делимость, последняя цифра и задачи с параметром.</p>
+      <div id="advancedRoot"></div>
+    </section>
+
+
+    <section class="panel" id="generator">
+      <h2 class="section-title">Сгенерировать карточку</h2>
+      <p class="section-sub">Выберите прототипы и количество заданий. Для каждого типа подготовлен банк из 15 разных аналогов.</p>
+      <div class="generator-intro">
+        <p>Можно собрать домашнюю работу, самостоятельную, индивидуальную карточку или несколько вариантов. Повторное нажатие «Сгенерировать» перемешивает банк и создаёт новый набор по тем же настройкам.</p>
+        <div class="generator-total" id="generatorTotal">Выбрано: 0 задач</div>
+      </div>
+      <div class="generator-config">
+        <div class="generator-fields">
+          <div class="gen-field"><label for="cardTitleInput">Название работы</label><input id="cardTitleInput" type="text" value="Свойства степеней с натуральным показателем"></div>
+          <div class="gen-field"><label for="cardVariantInput">Вариант</label><input id="cardVariantInput" type="text" value="1"></div>
+          <div class="gen-field"><label for="cardSubtitleInput">Подзаголовок</label><input id="cardSubtitleInput" type="text" value="Карточка для самостоятельной работы"></div>
+        </div>
+        <div class="gen-options">
+          <label><input id="showProtoNames" type="checkbox"> Показывать названия прототипов в карточке</label>
+          <label><input id="includeAnswerKey" type="checkbox"> Добавить ключ ответов отдельной страницей</label>
+        </div>
+        <div id="prototypePicker"></div>
+        <div class="gen-toolbar">
+          <div class="gen-toolbar-left">
+            <button class="gen-btn" id="selectBasicBtn" type="button">Базовые</button>
+            <button class="gen-btn" id="selectAdvancedBtn" type="button">Продвинутые</button>
+            <button class="gen-btn" id="clearProtoBtn" type="button">Очистить</button>
+          </div>
+          <div class="gen-toolbar-right">
+            <button class="gen-btn primary" id="generateCardBtn" type="button">Сгенерировать карточку</button>
+            <button class="gen-btn print" id="printCardBtn" type="button" disabled>Сохранить в PDF</button>
+          </div>
+        </div>
+      </div>
+      <div class="card-preview-wrap empty" id="cardPreviewWrap">
+        <div class="card-preview-head"><h3>Предпросмотр карточки</h3><div class="card-print-note">Кнопка «Сохранить в PDF» откроет печать браузера. Выберите «Сохранить как PDF».</div></div>
+        <div id="cardPreview"></div>
+      </div>
+    </section>
+
+    <section class="panel" id="result">
+      <h2 class="section-title">Итог</h2>
+      <div class="result-card">
+        <div class="eyebrow">Ваш результат</div>
+        <div class="bigscore" id="resultScore">0 / 90</div>
+        <p id="resultText">Начните решать задания — здесь появится итог.</p>
+        <div class="badge-row" id="badges"></div>
+      </div>
+    </section>
+
+    <footer class="footer"><span>© Шкатулка математических интерактивов Светланы Быковой</span><a href="https://shkatulka.sistema-math.ru/" target="_blank" rel="noopener">shkatulka.sistema-math.ru</a></footer>
+  </main>
+</div>
+
+
+<template id="scratchTemplate">
+  <aside class="scratch-panel" aria-hidden="true">
+    <div class="scratch-head">
+      <div class="scratch-title">✏️ Черновик</div>
+      <div class="scratch-controls">
+        <label>Цвет <input class="scratch-color" type="color" value="#173b5f" aria-label="Цвет карандаша"></label>
+        <label>Толщина <input class="scratch-size" type="range" min="2" max="22" value="5" aria-label="Толщина линии"></label>
+        <button class="scratch-tool scratch-eraser" type="button">Ластик</button>
+        <button class="scratch-tool scratch-clear" type="button">Очистить</button>
+        <button class="scratch-tool scratch-close" type="button" title="Закрыть черновик" aria-label="Закрыть черновик">✕</button>
+      </div>
+    </div>
+    <div class="scratch-body">
+      <canvas class="scratch-canvas"></canvas>
+    </div>
+    <div class="scratch-help">Можно писать мышью, стилусом или пальцем. Повторное нажатие на ✏️ скрывает черновик, рисунок остаётся.</div>
+  </aside>
+</template>
+
+<script>
+const tasks = [
+{id:1,group:'Разминка',zone:'practice',stars:1,type:'input',kind:'Вычисление',q:'Вычислите: \\(2^5\\).',a:['32'],hint:'Запишите пять множителей 2 или удваивайте последовательно.',explain:'\\(2^5=32\\).'},
+{id:2,group:'Разминка',zone:'practice',stars:1,type:'input',kind:'Вычисление',q:'Вычислите: \\((-3)^4\\).',a:['81'],hint:'Чётная степень отрицательного числа положительна.',explain:'\\((-3)^4=81\\).'},
+{id:3,group:'Разминка',zone:'practice',stars:1,type:'input',kind:'Знаки',q:'Вычислите: \\(-(-2)^5\\).',a:['32'],hint:'Сначала возведите в степень выражение в скобках.',explain:'\\((-2)^5=-32\\), поэтому \\(-(-32)=32\\).'},
+{id:4,group:'Разминка',zone:'practice',stars:1,type:'choice',kind:'Знаки',q:'Какой знак имеет число \\((-7)^{2027}\\)?',opts:['Положительный','Отрицательный','Равно нулю'],ans:1,hint:'Посмотрите на чётность показателя.',explain:'2027 нечётно, значит отрицательное основание даёт отрицательный результат.'},
+{id:5,group:'Разминка',zone:'practice',stars:1,type:'choice',kind:'Сравнение',q:'Сравните \\((-5)^4\\) и \\(-5^4\\).',opts:['\\(<\\)','\\(=\\)','\\(>\\)'],ans:2,hint:'Во втором числе минус не входит в основание степени.',explain:'\\((-5)^4=625\\), а \\(-5^4=-625\\).'},
+{id:6,group:'Разминка',zone:'practice',stars:1,type:'tf',kind:'Верно / неверно',q:'Верно ли равенство \\((-2)^6=-2^6\\)?',ans:false,hint:'Сравните роль скобок.',explain:'Левая часть равна 64, правая -64.'},
+
+{id:7,group:'Основные свойства',zone:'practice',stars:1,type:'input',kind:'Показатель',q:'Заполните показатель: \\(a^3\\cdot a^5=a^{\\Box}\\).',a:['8'],hint:'При умножении степеней с одинаковым основанием показатели складываются.',explain:'\\(3+5=8\\).'},
+{id:8,group:'Основные свойства',zone:'practice',stars:1,type:'input',kind:'Показатель',q:'Заполните показатель: \\(\\dfrac{x^{12}}{x^7}=x^{\\Box}\\), \\(x\\ne0\\).',a:['5'],hint:'При делении показатели вычитаются.',explain:'\\(12-7=5\\).'},
+{id:9,group:'Основные свойства',zone:'practice',stars:1,type:'input',kind:'Показатель',q:'Заполните показатель: \\((m^4)^3=m^{\\Box}\\).',a:['12'],hint:'В степени степени показатели перемножаются.',explain:'\\(4\\cdot3=12\\).'},
+{id:10,group:'Основные свойства',zone:'practice',stars:1,type:'choice',kind:'Выбор формулы',q:'Раскройте степень: \\((ab)^4\\).',opts:['\\(a^4b^4\\)','\\(a^4+b^4\\)','\\(ab^4\\)','\\(a^8b^8\\)'],ans:0,hint:'Одинаковый показатель получает каждый множитель.',explain:'\\((ab)^4=a^4b^4\\).'},
+{id:11,group:'Основные свойства',zone:'practice',stars:1,type:'choice',kind:'Выбор формулы',q:'Раскройте степень: \\(\\left(\\dfrac ab\\right)^5\\).',opts:['\\(\\dfrac{a^5}{b^5}\\)','\\(\\dfrac{a}{b^5}\\)','\\(\\dfrac{a^5}{b}\\)','\\(\\dfrac{a+b}{5}\\)'],ans:0,hint:'Показатель относится и к числителю, и к знаменателю.',explain:'\\(\\left(\\dfrac ab\\right)^5=\\dfrac{a^5}{b^5}\\).'},
+{id:12,group:'Основные свойства',zone:'practice',stars:1,type:'tf',kind:'Верно / неверно',q:'Верно ли в общем случае: \\((a+b)^3=a^3+b^3\\)?',ans:false,hint:'Проверьте, например, при \\(a=b=1\\).',explain:'Нет. Сумма в степени не раскрывается таким правилом.'},
+
+{id:13,group:'Приведение к одному основанию',zone:'practice',stars:2,type:'input',kind:'Вычисление',q:'Вычислите: \\(4^3\\cdot2^5\\).',a:['2048'],hint:'\\(4=2^2\\).',explain:'\\(4^3\\cdot2^5=2^6\\cdot2^5=2^{11}=2048\\).'},
+{id:14,group:'Приведение к одному основанию',zone:'practice',stars:2,type:'input',kind:'Вычисление',q:'Вычислите: \\(\\dfrac{8^4}{2^7}\\).',a:['32'],hint:'\\(8=2^3\\).',explain:'\\(2^{12}/2^7=2^5=32\\).'},
+{id:15,group:'Приведение к одному основанию',zone:'practice',stars:2,type:'input',kind:'Вычисление',q:'Вычислите: \\(\\dfrac{27^3}{3^5}\\).',a:['81'],hint:'\\(27=3^3\\).',explain:'\\(3^9/3^5=3^4=81\\).'},
+{id:16,group:'Приведение к одному основанию',zone:'practice',stars:2,type:'input',kind:'Вычисление',q:'Вычислите: \\(\\dfrac{125^2}{5^4}\\).',a:['25'],hint:'\\(125=5^3\\).',explain:'\\(5^6/5^4=5^2=25\\).'},
+{id:17,group:'Приведение к одному основанию',zone:'practice',stars:2,type:'input',kind:'Показатель',q:'Найдите показатель: \\(\\left(\\dfrac13\\right)^7\\cdot3^{10}=3^{\\Box}\\).',a:['3'],hint:'\\((1/3)^7=3^{-7}\\) как удобная запись для рассуждения.',explain:'Показатели дают \\(-7+10=3\\).'},
+{id:18,group:'Приведение к одному основанию',zone:'practice',stars:2,type:'choice',kind:'Сравнение',q:'Сравните \\(16^3\\) и \\(8^4\\).',opts:['\\(<\\)','\\(=\\)','\\(>\\)'],ans:1,hint:'Представьте обе степени как степени двойки.',explain:'\\(16^3=2^{12}\\) и \\(8^4=2^{12}\\).'},
+
+{id:19,group:'Смешанные выражения',zone:'practice',stars:2,type:'input',kind:'Показатель',q:'Заполните показатель: \\(3^n\\cdot9^2=3^{n+\\Box}\\).',a:['4'],hint:'\\(9^2=(3^2)^2=3^4\\).',explain:'Получаем \\(3^{n+4}\\).'},
+{id:20,group:'Смешанные выражения',zone:'practice',stars:2,type:'input',kind:'Независимость от n',q:'Упростите показатель двойки: \\(\\dfrac{32^{n+1}\\cdot4^{2n-2}}{2^{9n-1}}=2^{\\Box}\\).',a:['2'],hint:'\\(32=2^5\\), \\(4=2^2\\).',explain:'\\(5(n+1)+2(2n-2)-(9n-1)=2\\).'},
+{id:21,group:'Смешанные выражения',zone:'practice',stars:2,type:'input',kind:'Независимость от n',q:'Найдите значение предыдущего выражения.',a:['4'],hint:'Вы уже получили степень двойки с постоянным показателем.',explain:'\\(2^2=4\\).'},
+{id:22,group:'Смешанные выражения',zone:'practice',stars:2,type:'choice',kind:'Куб одночлена',q:'Представьте \\(-0{,}008a^{15}b^6c^{21}\\) в виде куба.',opts:['\\((-0{,}2a^5b^2c^7)^3\\)','\\((-0{,}8a^5b^2c^7)^3\\)','\\((-0{,}02a^5b^2c^7)^3\\)','\\((0{,}2a^5b^2c^7)^3\\)'],ans:0,hint:'\\((-0{,}2)^3=-0{,}008\\), а показатели нужно разделить на 3.',explain:'\\(-0{,}008=(-0{,}2)^3\\), \\(15=5\\cdot3\\), \\(6=2\\cdot3\\), \\(21=7\\cdot3\\).'},
+
+{id:23,group:'Сравнение больших степеней',zone:'advanced',stars:2,type:'choice',kind:'Сравнение',q:'Сравните, не вычисляя: \\(72^{20}\\) и \\(2^{61}\\cdot3^{40}\\).',opts:['\\(<\\)','\\(=\\)','\\(>\\)'],ans:0,hint:'\\(72=2^3\\cdot3^2\\).',explain:'\\(72^{20}=2^{60}3^{40}<2^{61}3^{40}\\).'},
+{id:24,group:'Сравнение больших степеней',zone:'advanced',stars:2,type:'choice',kind:'Сравнение',q:'Сравните, не вычисляя: \\(5^{60}\\) и \\(9^{40}\\).',opts:['\\(<\\)','\\(=\\)','\\(>\\)'],ans:2,hint:'Выделите общий показатель 20.',explain:'\\(5^{60}=125^{20}\\), \\(9^{40}=81^{20}\\), поэтому первое больше.'},
+{id:25,group:'Сравнение больших степеней',zone:'advanced',stars:2,type:'choice',kind:'Сравнение',q:'Сравните: \\(48^{15}\\) и \\(2^{61}\\cdot3^{15}\\).',opts:['\\(<\\)','\\(=\\)','\\(>\\)'],ans:0,hint:'\\(48=2^4\\cdot3\\).',explain:'\\(48^{15}=2^{60}3^{15}<2^{61}3^{15}\\).'},
+{id:26,group:'Формулы',zone:'advanced',stars:2,type:'tf',kind:'Верно / неверно',q:'Верно ли для натуральных \\(m,n\\): \\(a^{m+n}=a^m+a^n\\)?',ans:false,hint:'Свойство для суммы показателей связано с произведением степеней.',explain:'Правильно: \\(a^{m+n}=a^m\\cdot a^n\\).'},
+{id:27,group:'Формулы',zone:'advanced',stars:2,type:'tf',kind:'Верно / неверно',q:'Верно ли: \\(a^{mn}=(a^m)^n\\)?',ans:true,hint:'Это свойство степени степени.',explain:'Да, показатели перемножаются.'},
+
+{id:28,group:'Уравнения',zone:'advanced',stars:3,type:'input',kind:'Уравнение',q:'Решите в натуральных числах: \\(2^{x+1}+2^x=96\\).',a:['5'],hint:'Вынесите \\(2^x\\) за скобки.',explain:'\\(2^x(2+1)=96\\), значит \\(2^x=32\\), откуда \\(x=5\\).'},
+{id:29,group:'Уравнения',zone:'advanced',stars:3,type:'input',kind:'Уравнение',q:'Решите: \\(3^{x+1}+2\\cdot3^x=405\\).',a:['4'],hint:'Вынесите \\(3^x\\).',explain:'\\(5\\cdot3^x=405\\), значит \\(3^x=81=3^4\\).'},
+{id:30,group:'Уравнения',zone:'advanced',stars:3,type:'input',kind:'Уравнение',q:'Решите: \\(4^{x+1}=8^{x-1}\\).',a:['5'],hint:'Перейдите к основанию 2.',explain:'\\(2^{2x+2}=2^{3x-3}\\), поэтому \\(2x+2=3x-3\\), \\(x=5\\).'},
+{id:31,group:'Уравнения',zone:'advanced',stars:3,type:'input',kind:'Уравнение',q:'Решите: \\(25^{x+1}=125^{x-1}\\).',a:['5'],hint:'Перейдите к основанию 5.',explain:'\\(5^{2x+2}=5^{3x-3}\\), откуда \\(x=5\\).'},
+{id:32,group:'Уравнения',zone:'advanced',stars:3,type:'input',kind:'Уравнение',q:'Решите: \\(3^{x+2}-2\\cdot3^x=567\\).',a:['4'],hint:'Вынесите \\(3^x\\), а \\(3^{x+2}=9\\cdot3^x\\).',explain:'\\(7\\cdot3^x=567\\), значит \\(3^x=81\\), \\(x=4\\).'},
+
+{id:33,group:'Делимость',zone:'advanced',stars:3,type:'choice',kind:'Делимость',q:'Для любого \\(n\\in\\mathbb N\\) число \\(2^{3n}-1\\) делится на...',opts:['5','6','7','9'],ans:2,hint:'\\(2^{3n}=8^n\\), а \\(8\\equiv1\\pmod 7\\).',explain:'\\(8^n-1\\) делится на \\(8-1=7\\).'},
+{id:34,group:'Делимость',zone:'advanced',stars:3,type:'choice',kind:'Делимость',q:'Для любого \\(n\\in\\mathbb N\\) число \\(5^{2n}-1\\) делится на...',opts:['12','18','24','30'],ans:2,hint:'\\(5^{2n}=25^n\\), а \\(25\\equiv1\\pmod{24}\\).',explain:'\\(25^n-1\\) делится на 24.'},
+
+{id:35,group:'Последняя цифра',zone:'advanced',stars:3,type:'input',kind:'Циклы',q:'Найдите последнюю цифру числа \\(7^{2026}\\).',a:['9'],hint:'Последние цифры степеней 7 идут циклом: 7, 9, 3, 1.',explain:'\\(2026\\equiv2\\pmod4\\), значит последняя цифра 9.'},
+{id:36,group:'Последняя цифра',zone:'advanced',stars:3,type:'input',kind:'Циклы',q:'Найдите последнюю цифру \\(3^{2027}\\).',a:['7'],hint:'Цикл: 3, 9, 7, 1.',explain:'\\(2027\\equiv3\\pmod4\\), ответ 7.'},
+{id:37,group:'Последняя цифра',zone:'advanced',stars:3,type:'input',kind:'Циклы',q:'Найдите последнюю цифру \\(8^{2025}\\).',a:['8'],hint:'Цикл: 8, 4, 2, 6.',explain:'\\(2025\\equiv1\\pmod4\\), ответ 8.'},
+{id:38,group:'Последняя цифра',zone:'advanced',stars:3,type:'input',kind:'Циклы',q:'Найдите последнюю цифру \\(13^{2028}\\).',a:['1'],hint:'Достаточно рассмотреть последнюю цифру 3.',explain:'\\(2028\\equiv0\\pmod4\\), цикл степеней 3 заканчивается цифрой 1.'},
+
+{id:39,group:'Финальный микс',zone:'advanced',stars:3,type:'tf',kind:'Знаки',q:'Верно ли, что уравнение \\(x^6-x^5+x^4-x^3+x^2-x+1=0\\) не имеет отрицательных корней?',ans:true,hint:'Положите \\(x=-t\\), где \\(t>0\\), и посмотрите на знаки всех слагаемых.',explain:'При \\(x<0\\) каждое слагаемое становится положительным, сумма не может равняться нулю.'},
+{id:40,group:'Финальный микс',zone:'advanced',stars:3,type:'input',kind:'Вычисление',q:'Вычислите: \\(\\dfrac{2^{12}\\cdot4^5}{8^6}\\).',a:['16'],hint:'Всё приведите к основанию 2.',explain:'\\(2^{12+10-18}=2^4=16\\).'},
+{id:41,group:'Финальный микс',zone:'advanced',stars:3,type:'input',kind:'Вычисление',q:'Вычислите: \\(\\dfrac{9^5\\cdot27^2}{3^{13}}\\).',a:['27'],hint:'\\(9=3^2\\), \\(27=3^3\\).',explain:'\\(3^{10+6-13}=3^3=27\\).'},
+{id:42,group:'Финальный микс',zone:'advanced',stars:3,type:'input',kind:'Дробь',q:'Вычислите: \\(\\left(\\dfrac23\\right)^{12}\\left(\\dfrac94\\right)^5\\). Ответ запишите дробью.',a:['4/9','4:9'],hint:'Разложите \\(9^5=3^{10}\\), \\(4^5=2^{10}\\).',explain:'Получаем \\(2^{12-10}/3^{12-10}=4/9\\).'},
+{id:43,group:'Финальный микс',zone:'advanced',stars:3,type:'input',kind:'Независимость от n',q:'Найдите значение: \\(\\dfrac{16^{n+1}\\cdot8^{2n-1}}{2^{10n}}\\).',a:['2'],hint:'\\(16=2^4\\), \\(8=2^3\\).',explain:'Показатель равен \\(4n+4+6n-3-10n=1\\), значит значение 2.'},
+{id:44,group:'Финальный микс',zone:'advanced',stars:3,type:'choice',kind:'Сравнение',q:'Сравните \\(9^7\\) и \\(27^4\\).',opts:['\\(<\\)','\\(=\\)','\\(>\\)'],ans:2,hint:'Перейдите к основанию 3.',explain:'\\(9^7=3^{14}\\), \\(27^4=3^{12}\\), поэтому первое больше.'},
+{id:45,group:'Финальный микс',zone:'advanced',stars:3,type:'input',kind:'Вычисление',q:'Вычислите: \\(\\dfrac{(2^3)^4\\cdot4^5}{8^6}\\).',a:['16'],hint:'Сначала степень степени, затем всё к основанию 2.',explain:'\\(2^{12+10-18}=2^4=16\\).'}
+];
+
+const stateKey='powers_workbook_progress_v1';
+let state={};
+try{state=JSON.parse(localStorage.getItem(stateKey)||'{}')}catch(e){state={}}
+
+function norm(v){return String(v??'').trim().toLowerCase().replace(/\s+/g,'').replace(/,/g,'.').replace(/[−–—]/g,'-')}
+function groupsFor(zone){return [...new Set(tasks.filter(t=>t.zone===zone).map(t=>t.group))]}
+function starText(n){return '★'.repeat(n)+'☆'.repeat(3-n)}
+function taskHTML(t){
+  let answer='';
+  if(t.type==='input') answer=`<input class="answer-input" inputmode="text" autocomplete="off" placeholder="Введите ответ" aria-label="Ответ к заданию ${t.id}">`;
+  else if(t.type==='choice') answer=`<div class="answers">${t.opts.map((o,i)=>`<button type="button" class="choice" data-i="${i}">${o}</button>`).join('')}</div>`;
+  else if(t.type==='tf') answer=`<div class="answers"><button type="button" class="choice" data-i="true">Верно</button><button type="button" class="choice" data-i="false">Неверно</button></div>`;
+  return `<article class="task" data-id="${t.id}"><div class="task-left"><div class="task-top"><span class="num">Задание ${t.id}</span><span class="task-meta"><span class="kind">${t.kind} · <span class="stars">${starText(t.stars)}</span></span><button class="scratch-toggle" type="button" title="Открыть черновик" aria-label="Открыть черновик к заданию ${t.id}">✏️</button></span></div><div class="prompt">${t.q}</div>${answer}<div><button type="button" class="check">Проверить</button><button type="button" class="hintbtn">Подсказка</button></div><div class="hint">💡 ${t.hint}</div><div class="feedback"></div><div class="solution">${t.explain}</div></div></article>`;
+}
+function renderZone(zone, rootId){
+  const root=document.getElementById(rootId); root.innerHTML='';
+  groupsFor(zone).forEach((g,gi)=>{
+    const gt=tasks.filter(t=>t.zone===zone&&t.group===g); const stars=Math.max(...gt.map(t=>t.stars));
+    const wrap=document.createElement('section');
+    wrap.innerHTML=`<div class="level-head"><span class="level-chip">${g}</span><span class="stars">${starText(stars)}</span></div><div class="tasks">${gt.map(taskHTML).join('')}</div>`;
+    root.appendChild(wrap);
+  });
+}
+renderZone('practice','practiceRoot'); renderZone('advanced','advancedRoot');
+
+function initScratchboards(){
+  const allTasks=[...document.querySelectorAll('.task')];
+  const scratchTemplate=document.getElementById('scratchTemplate');
+
+  function closeOtherScratch(exceptTask){
+    allTasks.forEach(task=>{
+      if(task!==exceptTask && task.classList.contains('scratch-open')){
+        const s=task._scratch;
+        task.classList.remove('scratch-open');
+        if(s){
+          s.panel.setAttribute('aria-hidden','true');
+          s.toggle.classList.remove('active');
+          s.toggle.title='Открыть черновик';
+          s.toggle.setAttribute('aria-label',`Открыть черновик к заданию ${task.dataset.id}`);
+          s.drawing=false;s.last=null;
+        }
+      }
+    });
+  }
+
+  function setupScratch(task){
+    task.appendChild(scratchTemplate.content.cloneNode(true));
+    const panel=task.querySelector('.scratch-panel');
+    const body=task.querySelector('.scratch-body');
+    const canvas=task.querySelector('.scratch-canvas');
+    const toggle=task.querySelector('.scratch-toggle');
+    const color=task.querySelector('.scratch-color');
+    const size=task.querySelector('.scratch-size');
+    const eraser=task.querySelector('.scratch-eraser');
+    const clear=task.querySelector('.scratch-clear');
+    const close=task.querySelector('.scratch-close');
+    const state={panel,body,canvas,toggle,color,size,eraser,clear,close,ctx:null,drawing:false,erase:false,last:null};
+    task._scratch=state;
+
+    function resize(preserve=true){
+      const rect=body.getBoundingClientRect();
+      if(rect.width<2||rect.height<2)return;
+      const ratio=Math.min(2,window.devicePixelRatio||1);
+      let snap=null;
+      if(preserve&&canvas.width&&canvas.height){
+        snap=document.createElement('canvas');snap.width=canvas.width;snap.height=canvas.height;
+        snap.getContext('2d').drawImage(canvas,0,0);
+      }
+      canvas.width=Math.round(rect.width*ratio);canvas.height=Math.round(rect.height*ratio);
+      canvas.style.width=rect.width+'px';canvas.style.height=rect.height+'px';
+      state.ctx=canvas.getContext('2d');
+      state.ctx.setTransform(ratio,0,0,ratio,0,0);state.ctx.lineCap='round';state.ctx.lineJoin='round';
+      if(snap){
+        state.ctx.save();state.ctx.setTransform(1,0,0,1,0,0);state.ctx.drawImage(snap,0,0,canvas.width,canvas.height);state.ctx.restore();
+        state.ctx.setTransform(ratio,0,0,ratio,0,0);
+      }
+    }
+    function clearCanvas(){
+      if(!canvas.width)return;const ctx=canvas.getContext('2d');ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,canvas.width,canvas.height);ctx.restore();
+    }
+    function openScratch(){
+      closeOtherScratch(task);task.classList.add('scratch-open');panel.setAttribute('aria-hidden','false');toggle.classList.add('active');
+      toggle.title='Закрыть черновик';toggle.setAttribute('aria-label',`Закрыть черновик к заданию ${task.dataset.id}`);
+      requestAnimationFrame(()=>resize(true));setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'nearest'}),80);
+    }
+    function closeScratch(){
+      state.drawing=false;state.last=null;task.classList.remove('scratch-open');panel.setAttribute('aria-hidden','true');toggle.classList.remove('active');
+      toggle.title='Открыть черновик';toggle.setAttribute('aria-label',`Открыть черновик к заданию ${task.dataset.id}`);
+    }
+    function point(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+    function begin(e){if(!state.ctx)resize(false);state.drawing=true;state.last=point(e);canvas.setPointerCapture?.(e.pointerId);e.preventDefault()}
+    function move(e){
+      if(!state.drawing||!state.ctx||!state.last)return;const p=point(e);const mid={x:(state.last.x+p.x)/2,y:(state.last.y+p.y)/2};const ctx=state.ctx;
+      ctx.save();ctx.globalCompositeOperation=state.erase?'destination-out':'source-over';ctx.strokeStyle=color.value||'#173b5f';ctx.lineWidth=Number(size.value||5);
+      ctx.beginPath();ctx.moveTo(state.last.x,state.last.y);ctx.quadraticCurveTo(state.last.x,state.last.y,mid.x,mid.y);ctx.quadraticCurveTo(mid.x,mid.y,p.x,p.y);ctx.stroke();ctx.restore();
+      state.last=p;e.preventDefault();
+    }
+    function end(e){state.drawing=false;state.last=null;try{canvas.releasePointerCapture?.(e.pointerId)}catch{}}
+
+    toggle.addEventListener('click',()=>task.classList.contains('scratch-open')?closeScratch():openScratch());
+    close.addEventListener('click',closeScratch);clear.addEventListener('click',clearCanvas);
+    eraser.addEventListener('click',()=>{state.erase=!state.erase;eraser.classList.toggle('active',state.erase);eraser.textContent=state.erase?'Рисовать':'Ластик'});
+    canvas.addEventListener('pointerdown',begin);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',end);
+    canvas.addEventListener('pointerleave',e=>{if(e.buttons===0)end(e)});
+    if('ResizeObserver'in window)new ResizeObserver(()=>{if(task.classList.contains('scratch-open'))resize(true)}).observe(body);
+    else window.addEventListener('resize',()=>{if(task.classList.contains('scratch-open'))resize(true)});
+  }
+  allTasks.forEach(setupScratch);
+}
+initScratchboards();
+if (window.MathJax && MathJax.typesetPromise) { MathJax.typesetPromise(); }
+else { window.addEventListener('load',()=>{ if(window.MathJax?.typesetPromise) MathJax.typesetPromise(); }); }
+
+function isCorrect(t,card){
+  if(t.type==='input'){
+    const v=norm(card.querySelector('input').value); return t.a.some(a=>norm(a)===v);
+  }
+  const sel=card.querySelector('.choice.selected'); if(!sel) return null;
+  if(t.type==='choice') return Number(sel.dataset.i)===t.ans;
+  return (sel.dataset.i==='true')===t.ans;
+}
+function restoreCard(t){
+  const card=document.querySelector(`.task[data-id="${t.id}"]`); const s=state[t.id]; if(!card||!s?.done)return;
+  card.classList.add(s.correct?'correct':'wrong');
+  const fb=card.querySelector('.feedback'); fb.className='feedback show '+(s.correct?'ok':'no'); fb.textContent=s.correct?'✓ Верно!':'Ответ был проверен. Откройте разбор.';
+  card.querySelector('.solution').classList.add('show'); card.querySelector('.check').disabled=true;
+  if(t.type==='input'&&s.value!=null) card.querySelector('input').value=s.value;
+  if((t.type==='choice'||t.type==='tf')&&s.value!=null){const b=[...card.querySelectorAll('.choice')].find(x=>x.dataset.i===String(s.value)); if(b)b.classList.add('selected');}
+}
+function save(){localStorage.setItem(stateKey,JSON.stringify(state)); updateStats()}
+function updateStats(){
+  const done=tasks.filter(t=>state[t.id]?.done); const correct=done.filter(t=>state[t.id]?.correct); const score=correct.reduce((s,t)=>s+t.stars,0); const max=tasks.reduce((s,t)=>s+t.stars,0);
+  document.getElementById('progressText').textContent=`Пройдено: ${done.length} из ${tasks.length}`;
+  document.getElementById('progressBar').style.width=(done.length/tasks.length*100)+'%';
+  document.getElementById('scoreText').textContent=`Баллы: ${score}`;
+  document.getElementById('resultScore').textContent=`${score} / ${max}`;
+  let txt='Начните решать задания — здесь появится итог.';
+  if(done.length){const pct=Math.round(correct.length/done.length*100); txt=`Верных ответов: ${correct.length} из ${done.length} (${pct}%). Пройдено ${Math.round(done.length/tasks.length*100)}% тренажёра.`}
+  document.getElementById('resultText').textContent=txt;
+  const badges=[]; if(done.length>=10)badges.push('Разминка пройдена'); if(done.length>=25)badges.push('Свойства закреплены'); if(correct.filter(t=>t.stars===3).length>=8)badges.push('Сильный уровень'); if(done.length===tasks.length)badges.push('Тренажёр завершён');
+  document.getElementById('badges').innerHTML=badges.map(b=>`<span class="badge">${b}</span>`).join('');
+}
+
+
+// ===== Конструктор карточек: 25 прототипов × 15 аналогов =====
+const CARD_BANK_SIZE=15;
+const cm=s=>`\\(${s}\\)`;
+const pow=(a,n)=>`${a}^{${n}}`;
+const rel=(a,b)=>a<b?'\\lt':a>b?'\\gt':'=';
+const shuffle=a=>{const x=[...a];for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]]}return x};
+const powMod=(base,exp,mod)=>{let r=1,b=((base%mod)+mod)%mod,e=exp;while(e>0){if(e%2)r=(r*b)%mod;b=(b*b)%mod;e=Math.floor(e/2)}return r};
+const texAnswer=s=>cm(s);
+
+const formulaStatements=[
+  ['a^m\\cdot a^n=a^{m+n}',true],['a^m+a^n=a^{m+n}',false],['(a^m)^n=a^{m+n}',false],['(ab)^n=a^n b^n',true],['(a+b)^n=a^n+b^n',false],
+  ['\\dfrac{a^m}{a^n}=a^{m-n}\\;(a\\ne0)',true],['\\left(\\dfrac ab\\right)^n=\\dfrac{a^n}{b^n}\\;(b\\ne0)',true],['(-a)^{2n}=a^{2n}',true],['(-a)^{2n+1}=a^{2n+1}',false],['a^n b^n=(ab)^n',true],
+  ['a^{mn}=(a^m)^n',true],['a^0=0\\;(a\\ne0)',false],['a^1=1',false],['\\dfrac{a^m}{b^m}=\\left(\\dfrac ab\\right)^m\\;(b\\ne0)',true],['(a-b)^2=a^2-b^2',false]
+];
+const advancedStatements=[
+  ['(a^m b^m)^n=(ab)^{mn}',true],['(a^m)^n=(a^n)^m',true],['a^{m-n}=a^m-a^n',false],['a^{m+n}=a^m\\cdot a^n',true],['(a^m b^n)^k=a^{mk}b^{nk}',true],
+  ['\\dfrac{a^{m+n}}{a^m}=a^n\\;(a\\ne0)',true],['\\dfrac{a^m+b^m}{a^m}=1+b^m',false],['(-a)^{2n+1}=-a^{2n+1}',true],['(-a)^{2n}=-a^{2n}',false],['(ab)^{m+n}=a^m b^n',false],
+  ['a^{2n}=(a^n)^2',true],['a^{3n}=(a^3)^n',true],['\\left(\\dfrac ab\\right)^{m+n}=\\left(\\dfrac ab\\right)^m\\left(\\dfrac ab\\right)^n',true],['a^m:a^n=a^{m:n}',false],['(a+b)^2=a^2+2ab+b^2',true]
+];
+const commonExponentCfg=[
+  [5,3,9,2,20],[2,5,4,2,9],[3,4,9,2,8],[7,2,3,4,11],[4,3,8,2,7],
+  [2,6,8,2,5],[10,2,4,3,6],[6,2,3,3,9],[3,5,9,2,4],[8,2,4,3,10],
+  [5,2,3,3,12],[9,2,27,1,13],[4,4,8,2,3],[7,3,49,1,6],[2,10,4,5,2]
+];
+
+function makeB1(i){
+  const b=2+(i%5), e=2+((i*2)%5), mode=i%3; let q,a;
+  if(mode===0){q=`Вычислите: ${cm(`${b}^{${e}}`)}.`;a=b**e;}
+  else if(mode===1){q=`Вычислите: ${cm(`(-${b})^{${e}}`)}.`;a=(-b)**e;}
+  else{q=`Вычислите: ${cm(`-${b}^{${e}}`)}.`;a=-(b**e);}
+  return {q,answer:texAnswer(String(a))};
+}
+function makeB2(i){
+  const v=['a','x','b','m','y'][i%5];
+  if(i%2===0){const m=2+(i%7),n=1+((i*3)%6);return {q:`Упростите: ${cm(`${v}^{${m}}\\cdot ${v}^{${n}}`)}.`,answer:texAnswer(`${v}^{${m+n}}`)};}
+  const m=7+(i%7),n=1+((i*2)%5);return {q:`Упростите: ${cm(`\\dfrac{${v}^{${m}}}{${v}^{${n}}}`)}, ${cm(`${v}\\ne0`)}.`,answer:texAnswer(`${v}^{${m-n}}`)};
+}
+function makeB3(i){const v=['a','x','m','b','y'][i%5],m=2+(i%4),n=2+Math.floor(i/4);return {q:`Упростите: ${cm(`(${v}^{${m}})^{${n}}`)}.`,answer:texAnswer(`${v}^{${m*n}}`)};}
+function makeB4(i){
+  const n=2+(i%4),p=1+(i%5),qv=1+Math.floor(i/5);
+  if(i%2===0){const c=2+(i%4);return {q:`Раскройте степень: ${cm(`(${c}a^{${p}}b^{${qv}})^{${n}}`)}.`,answer:texAnswer(`${c**n}a^{${p*n}}b^{${qv*n}}`)};}
+  return {q:`Раскройте степень: ${cm(`\\left(\\dfrac{a^{${p}}}{b^{${qv}}}\\right)^{${n}}`)}.`,answer:texAnswer(`\\dfrac{a^{${p*n}}}{b^{${qv*n}}}`)};
+}
+function makeB5(i){
+  const p=[2,3,5][i%3],k=2+(i%2),A=p**k;
+  if(i%2===0){const m=2+Math.floor(i/3),n=1+(i%4),e=k*m+n;return {q:`Представьте одной степенью с основанием ${cm(String(p))}: ${cm(`${A}^{${m}}\\cdot${p}^{${n}}`)}.`,answer:texAnswer(`${p}^{${e}}`)};}
+  const m=3+Math.floor(i/3),n=1+(i%3),e=k*m-n;return {q:`Представьте одной степенью с основанием ${cm(String(p))}: ${cm(`\\dfrac{${A}^{${m}}}{${p}^{${n}}}`)}.`,answer:texAnswer(`${p}^{${e}}`)};
+}
+function makeB6(i){const v=['a','x','m'][i%3],a=2+(i%4),b=2+Math.floor(i/5),c=1+(i%5),d=1+(i%3),e=a*b+c-d;return {q:`Упростите: ${cm(`\\dfrac{(${v}^{${a}})^{${b}}\\cdot ${v}^{${c}}}{${v}^{${d}}}`)}, ${cm(`${v}\\ne0`)}.`,answer:texAnswer(`${v}^{${e}}`)};}
+function makeB7(i){const [f,ok]=formulaStatements[i];return {q:`Верно ли равенство ${cm(f)}?`,answer:ok?'Верно':'Неверно'};}
+
+function makeA1(i){
+  const b=2+(i%6),e=3+i,mode=i%3;let expr,val;
+  if(mode===0){expr=`-(-${b})^{${e}}`;val=-((-b)**e);}
+  else if(mode===1){expr=`(-(-${b})^{${e}})`;val=-((-b)**e);}
+  else{expr=`((-${b})^{${e}})^2`;val=(((-b)**e)**2);}
+  return {q:`Определите знак выражения ${cm(expr)}.`,answer:val>0?'Положительный':val<0?'Отрицательный':'Ноль'};
+}
+function makeA2(i){const p=[2,3,5][i%3],k=2+(i%2),l=2+((i+1)%2),A=p**k,B=p**l,m=2+Math.floor(i/3),n=1+(i%4),r=1+(i%5),e=k*m+l*n-r;return {q:`Представьте одной степенью: ${cm(`\\dfrac{${A}^{${m}}\\cdot${B}^{${n}}}{${p}^{${r}}}`)}.`,answer:texAnswer(`${p}^{${e}}`)};}
+function makeA3(i){const pairs=[[2,3],[3,5],[4,7],[5,2],[7,3]][i%5],a=pairs[0],b=pairs[1],m=6+(i%5),n=1+(i%4),d=m-n;return {q:`Упростите: ${cm(`\\left(\\dfrac{${a}}{${b}}\\right)^{${m}}\\left(\\dfrac{${b}}{${a}}\\right)^{${n}}`)}.`,answer:texAnswer(`\\left(\\dfrac{${a}}{${b}}\\right)^{${d}}`)};}
+function makeA4(i){const c=2+(i%4),p=2+(i%4),qv=2+((i+1)%3),r=1+(i%Math.max(1,2*p-1)),sv=1+(i%Math.max(1,2*qv-1)),ae=2*p-r,be=2*qv-sv;return {q:`Упростите: ${cm(`\\dfrac{(${c}a^{${p}}b^{${qv}})^2}{${c}a^{${r}}b^{${sv}}}`)}.`,answer:texAnswer(`${c}a^{${ae}}b^{${be}}`)};}
+function makeA5(i){const p=[2,3,5][i%3],k=2+(i%3),A=p**k,c=1+(i%5),r=i%3,constant=c-r;const tail=constant===0?`${k}n`:constant>0?`${k}n+${constant}`:`${k}n${constant}`;return {q:`Упростите: ${cm(`\\dfrac{${A}^{n}\\cdot${p}^{${c}}}{${p}^{${r}}}`)}.`,answer:texAnswer(`${p}^{${tail}}`)};}
+function makeA6(i){const v=['a','x','m','b','y'][i%5],inner=2+(i%7),outer=2+((i+1)%5),total=inner*outer;return {q:`Найдите ${cm('k')}: ${cm(`(${v}^{k})^{${outer}}=${v}^{${total}}`)}.`,answer:texAnswer(String(inner))};}
+function makeA7(i){const base=[2,3,5][i%3],shift=Math.floor(i/3),r=1+(i%2),count=base**r,exp=shift?`n+${shift}`:'n',ansShift=shift+r,ansExp=`n+${ansShift}`;return {q:`Представьте одной степенью: ${cm(`\\underbrace{${base}^{${exp}}+\\cdots+${base}^{${exp}}}_{${count}\\text{ одинаковых слагаемых}}`)}.`,answer:texAnswer(`${base}^{${ansExp}}`)};}
+function makeA8(i){const p=[2,3][i%2],a=6+(i%5),u=2+Math.floor(i/5),b=1+(i%3),v=2+(i%4),w=1,d=1+(i%3),c=a*u-b*w-d,A=p**a,B=p**b,coef=a+b*v;return {q:`Найдите значение: ${cm(`\\dfrac{${A}^{n+${u}}\\cdot${B}^{${v}n-${w}}}{${p}^{${coef}n+${c}}}`)}.`,answer:texAnswer(String(p**d))};}
+function makeA9(i){const ks=[2,-2,3,-3,4][i%5],p=1+(i%5),qv=1+((i+2)%4),r=1+((i+1)%3),coef=ks**3;return {q:`Представьте в виде куба: ${cm(`${coef}a^{${3*p}}b^{${3*qv}}c^{${3*r}}`)}.`,answer:texAnswer(`(${ks}a^{${p}}b^{${qv}}c^{${r}})^3`)};}
+function makeA10(i){const cfg=[[3,1],[1,2],[4,1],[2,2],[3,2]][i%5],r=cfg[0],sv=cfg[1],A=(2**r)*(3**sv),n=10+i,d=(i%3)-1,left2=r*n+d,right3=sv*n;return {q:`Сравните, не вычисляя: ${cm(`${A}^{${n}}`)} и ${cm(`2^{${left2}}\\cdot3^{${right3}}`)}.`,answer:texAnswer(d>0?'\\lt':d<0?'\\gt':'=')};}
+function makeA11(i){const [a,u,b,v,k]=commonExponentCfg[i],leftExp=u*k,rightExp=v*k,R=rel(a**u,b**v);return {q:`Сравните, не вычисляя: ${cm(`${a}^{${leftExp}}`)} и ${cm(`${b}^{${rightExp}}`)}.`,answer:texAnswer(R)};}
+function makeA12(i){const [f,ok]=advancedStatements[i];return {q:`Верно ли утверждение ${cm(f)}?`,answer:ok?'Верно':'Неверно'};}
+function makeA13(i){const p=[2,3,5][i%3],r=1+(i%2),c=1+(i%4),x0=2+(i%5),N=(p**r+c)*(p**x0);return {q:`Решите в натуральных числах: ${cm(`${p}^{x+${r}}+${c}\\cdot${p}^{x}=${N}`)}.`,answer:texAnswer(`x=${x0}`)};}
+function makeA14(i){const p=[2,3,5][i%3],a=1+Math.floor(i/5),b=1+(i%5),A=p**2,B=p**3,x0=2*a+3*b;return {q:`Решите: ${cm(`${A}^{x+${a}}=${B}^{x-${b}}`)}.`,answer:texAnswer(`x=${x0}`)};}
+function makeA15(i){const p=2+(i%7),k=2+Math.floor(i/7),d=p**k-1;return {q:`Докажите, что при любом ${cm('n\\in\\mathbb N')} число ${cm(`${p}^{${k}n}-1`)} делится на ${cm(String(d))}.`,answer:`${cm(`${p}^{${k}n}-1=(${p}^{${k}})^n-1^n`)} — разность степеней, поэтому выражение делится на ${cm(`${p}^{${k}}-1=${d}`)}.`};}
+function makeA16(i){const bases=[2,3,4,7,8,9,12,13,17,18,23,27,32,43,57],b=bases[i],e=2021+i*7,last=powMod(b,e,10);return {q:`Найдите последнюю цифру числа ${cm(`${b}^{${e}}`)}.`,answer:texAnswer(String(last))};}
+function makeA17(i){const m=2+i,deg=2*m;return {q:`Докажите, что уравнение ${cm(`x^{${deg}}-x^{${deg-1}}+x^{${deg-2}}-\\cdots-x+1=0`)} не имеет отрицательных корней.`,answer:'Отрицательных корней нет: при x<0 каждое слагаемое левой части положительно.'};}
+function makeA18(i){const p=[2,3,5][i%3],r=2+(i%2),s=1+((i+1)%3),m=2+Math.floor(i/3),n=1+(i%4),d=1+(i%5),e=r*m+s*n-d;return {q:`Вычислите: ${cm(`\\dfrac{(${p}^{${r}})^{${m}}\\cdot(${p}^{${s}})^{${n}}}{${p}^{${d}}}`)}.`,answer:texAnswer(String(p**e))};}
+
+const cardPrototypes=[
+ {id:'B1',group:'Базовая тренировка',title:'Значение степени и знаки',note:'Вычисление степеней, скобки, чётность показателя',make:makeB1},
+ {id:'B2',group:'Базовая тренировка',title:'Умножение и деление степеней',note:'Одинаковое основание: сложение и вычитание показателей',make:makeB2},
+ {id:'B3',group:'Базовая тренировка',title:'Степень степени',note:'Показатели перемножаются',make:makeB3},
+ {id:'B4',group:'Базовая тренировка',title:'Степень произведения и частного',note:'Распределение показателя на множители, числитель и знаменатель',make:makeB4},
+ {id:'B5',group:'Базовая тренировка',title:'Приведение к одному основанию',note:'Простые числовые выражения с основаниями 2, 3 и 5',make:makeB5},
+ {id:'B6',group:'Базовая тренировка',title:'Смешанные выражения',note:'Несколько свойств степеней в одной цепочке',make:makeB6},
+ {id:'B7',group:'Базовая тренировка',title:'Верные и неверные формулы',note:'Проверка понимания свойств и типичных ошибок',make:makeB7},
+ {id:'A1',group:'Продвинутые прототипы',title:'Знаки, скобки и вложенные степени',note:'Чётность показателя и область действия минуса',make:makeA1},
+ {id:'A2',group:'Продвинутые прототипы',title:'Приведение к одному основанию — сложный уровень',note:'Несколько составных оснований и деление',make:makeA2},
+ {id:'A3',group:'Продвинутые прототипы',title:'Взаимно обратные основания',note:'Переход между a/b и b/a',make:makeA3},
+ {id:'A4',group:'Продвинутые прототипы',title:'Одночлены и сложные дроби',note:'Степени одночленов, сокращение коэффициентов и показателей',make:makeA4},
+ {id:'A5',group:'Продвинутые прототипы',title:'Переменный показатель',note:'Преобразования, где показатель содержит n',make:makeA5},
+ {id:'A6',group:'Продвинутые прототипы',title:'Восстановление основания степени',note:'Поиск пропущенного показателя или внутренней степени',make:makeA6},
+ {id:'A7',group:'Продвинутые прототипы',title:'Сумма одинаковых степеней',note:'Коэффициент как степень того же основания',make:makeA7},
+ {id:'A8',group:'Продвинутые прототипы',title:'Выражения, не зависящие от n',note:'Сокращение коэффициента при n в показателе',make:makeA8},
+ {id:'A9',group:'Продвинутые прототипы',title:'Представление одночлена в виде куба',note:'Куб коэффициента и делимость показателей на 3',make:makeA9},
+ {id:'A10',group:'Продвинутые прототипы',title:'Сравнение больших степеней: разложение основания',note:'Разложение составного основания на простые множители',make:makeA10},
+ {id:'A11',group:'Продвинутые прототипы',title:'Сравнение больших степеней: общий показатель',note:'Выделение общего показателя и сравнение оснований',make:makeA11},
+ {id:'A12',group:'Продвинутые прототипы',title:'Верные и неверные формулы — сложный уровень',note:'Тонкие различия между корректными и ложными преобразованиями',make:makeA12},
+ {id:'A13',group:'Продвинутые прототипы',title:'Уравнения: вынесение общей степени',note:'Вынесение p^x как общего множителя',make:makeA13},
+ {id:'A14',group:'Продвинутые прототипы',title:'Уравнения: приведение к одному основанию',note:'Линейное уравнение после сравнения показателей',make:makeA14},
+ {id:'A15',group:'Продвинутые прототипы',title:'Делимость и степени',note:'Разность степеней a^n−b^n',make:makeA15},
+ {id:'A16',group:'Продвинутые прототипы',title:'Последняя цифра степени',note:'Циклы последних цифр по модулю 10',make:makeA16},
+ {id:'A17',group:'Продвинутые прототипы',title:'Знаки степеней и отсутствие корней',note:'Доказательство через знак каждого слагаемого при x<0',make:makeA17},
+ {id:'A18',group:'Продвинутые прототипы',title:'Смешанные задачи',note:'Степень степени + произведение/частное + общее основание',make:makeA18}
+];
+
+const displayProtoId=id=>id.startsWith('B')?'Т'+id.slice(1):id.startsWith('A')?id.slice(1):id;
+const cardBanks=Object.fromEntries(cardPrototypes.map(p=>[p.id,Array.from({length:CARD_BANK_SIZE},(_,i)=>({...p.make(i),prototype:p.title,prototypeId:displayProtoId(p.id)}))]));
+const generatorConfigKey='powers_card_generator_config_v1';
+let generatedCard=[];
+function renderPrototypePicker(){
+  const root=document.getElementById('prototypePicker');
+  const groups=[...new Set(cardPrototypes.map(p=>p.group))];
+  root.innerHTML=groups.map(g=>`<div class="proto-group-head">${g}</div><div class="proto-list">${cardPrototypes.filter(p=>p.group===g).map(p=>`<div class="proto-row" data-proto="${p.id}"><input class="proto-check" type="checkbox" aria-label="Добавить прототип ${p.title}"><div class="proto-name"><div class="proto-title">${displayProtoId(p.id)}. ${p.title}</div><div class="proto-note">${p.note}</div></div><span class="bank-badge">банк 15</span><div class="qtybox"><button class="qtybtn qty-minus" type="button" aria-label="Уменьшить количество">−</button><input class="qtyinput" type="number" min="1" max="15" value="1" aria-label="Количество задач"><button class="qtybtn qty-plus" type="button" aria-label="Увеличить количество">+</button></div></div>`).join('')}</div>`).join('');
+  restoreGeneratorConfig();updateGeneratorTotal();
+}
+function selectedPrototypeRows(){return [...document.querySelectorAll('.proto-row')].filter(r=>r.querySelector('.proto-check').checked)}
+function updateGeneratorTotal(){
+  let total=0;document.querySelectorAll('.proto-row').forEach(r=>{const checked=r.querySelector('.proto-check').checked;r.classList.toggle('selected',checked);if(checked)total+=Number(r.querySelector('.qtyinput').value||1)});
+  document.getElementById('generatorTotal').textContent=`Выбрано: ${total} ${total%10===1&&total%100!==11?'задача':([2,3,4].includes(total%10)&&![12,13,14].includes(total%100)?'задачи':'задач')}`;
+  document.getElementById('generateCardBtn').disabled=total===0;saveGeneratorConfig();
+}
+function generatorConfig(){const rows={};document.querySelectorAll('.proto-row').forEach(r=>rows[r.dataset.proto]={checked:r.querySelector('.proto-check').checked,qty:Number(r.querySelector('.qtyinput').value||1)});return{rows,title:document.getElementById('cardTitleInput')?.value||'',variant:document.getElementById('cardVariantInput')?.value||'',subtitle:document.getElementById('cardSubtitleInput')?.value||'',showProto:!!document.getElementById('showProtoNames')?.checked,answers:!!document.getElementById('includeAnswerKey')?.checked}}
+function saveGeneratorConfig(){try{localStorage.setItem(generatorConfigKey,JSON.stringify(generatorConfig()))}catch(e){}}
+function restoreGeneratorConfig(){let c={};try{c=JSON.parse(localStorage.getItem(generatorConfigKey)||'{}')}catch(e){};if(c.title!=null)document.getElementById('cardTitleInput').value=c.title;if(c.variant!=null)document.getElementById('cardVariantInput').value=c.variant;if(c.subtitle!=null)document.getElementById('cardSubtitleInput').value=c.subtitle;if(c.showProto!=null)document.getElementById('showProtoNames').checked=!!c.showProto;if(c.answers!=null)document.getElementById('includeAnswerKey').checked=!!c.answers;document.querySelectorAll('.proto-row').forEach(r=>{const x=c.rows?.[r.dataset.proto];if(x){r.querySelector('.proto-check').checked=!!x.checked;r.querySelector('.qtyinput').value=Math.max(1,Math.min(15,Number(x.qty)||1))}})}
+function generateCard(){
+  const rows=selectedPrototypeRows();if(!rows.length)return;
+  generatedCard=[];rows.forEach(r=>{const id=r.dataset.proto,qty=Math.max(1,Math.min(15,Number(r.querySelector('.qtyinput').value||1)));generatedCard.push(...shuffle(cardBanks[id]).slice(0,qty))});generatedCard=shuffle(generatedCard);
+  const title=(document.getElementById('cardTitleInput').value||'Свойства степеней с натуральным показателем').trim(),variant=(document.getElementById('cardVariantInput').value||'').trim(),subtitle=(document.getElementById('cardSubtitleInput').value||'Карточка').trim(),showProto=document.getElementById('showProtoNames').checked,answers=document.getElementById('includeAnswerKey').checked;
+  const tasksHtml=generatedCard.map(t=>`<div class="generated-task"><div class="gq">${showProto?`<span class="proto-caption">${t.prototypeId} · ${t.prototype}</span>`:''}${t.q}</div></div>`).join('');
+  const keyHtml=answers?`<section class="answer-key"><h3>Ключ ответов</h3><div class="answer-key-grid">${generatedCard.map((t,i)=>`<div class="key-item"><b>${i+1}.</b><span>${t.answer}</span></div>`).join('')}</div></section>`:'';
+  document.getElementById('cardPreview').innerHTML=`<section class="card-sheet"><div class="card-head"><div><div class="card-kicker">${subtitle}</div><div class="card-title">${title}</div></div><div class="card-variant">${variant?`Вариант ${variant}`:''}</div><div class="card-meta-line"><span>Фамилия, имя __________________________________</span><span>Дата __________________</span></div></div><div class="generated-tasks">${tasksHtml}</div><div class="card-brand"><span>© Шкатулка математических интерактивов Светланы Быковой</span><a href="https://shkatulka.sistema-math.ru/">shkatulka.sistema-math.ru</a></div></section>${keyHtml}`;
+  document.getElementById('cardPreviewWrap').classList.remove('empty');document.getElementById('printCardBtn').disabled=false;saveGeneratorConfig();
+  if(window.MathJax?.typesetPromise){try{MathJax.typesetClear?.([document.getElementById('cardPreview')])}catch(e){}MathJax.typesetPromise([document.getElementById('cardPreview')])}
+  setTimeout(()=>document.getElementById('cardPreviewWrap').scrollIntoView({behavior:'smooth',block:'start'}),60);
+}
+function setGroupSelection(group,checked){document.querySelectorAll('.proto-row').forEach(r=>{const p=cardPrototypes.find(x=>x.id===r.dataset.proto);if(p?.group===group)r.querySelector('.proto-check').checked=checked});updateGeneratorTotal()}
+renderPrototypePicker();
+['cardTitleInput','cardVariantInput','cardSubtitleInput','showProtoNames','includeAnswerKey'].forEach(id=>document.getElementById(id).addEventListener('input',saveGeneratorConfig));
+document.getElementById('prototypePicker').addEventListener('click',e=>{const row=e.target.closest('.proto-row');if(!row)return;if(e.target.classList.contains('qty-minus')||e.target.classList.contains('qty-plus')){const input=row.querySelector('.qtyinput'),delta=e.target.classList.contains('qty-plus')?1:-1;input.value=Math.max(1,Math.min(15,Number(input.value||1)+delta));row.querySelector('.proto-check').checked=true;updateGeneratorTotal()}});
+document.getElementById('prototypePicker').addEventListener('change',e=>{const row=e.target.closest('.proto-row');if(!row)return;if(e.target.classList.contains('qtyinput')){e.target.value=Math.max(1,Math.min(15,Number(e.target.value||1)));row.querySelector('.proto-check').checked=true}updateGeneratorTotal()});
+document.getElementById('selectBasicBtn').addEventListener('click',()=>setGroupSelection('Базовая тренировка',true));
+document.getElementById('selectAdvancedBtn').addEventListener('click',()=>setGroupSelection('Продвинутые прототипы',true));
+document.getElementById('clearProtoBtn').addEventListener('click',()=>{document.querySelectorAll('.proto-check').forEach(x=>x.checked=false);updateGeneratorTotal()});
+document.getElementById('generateCardBtn').addEventListener('click',generateCard);
+document.getElementById('printCardBtn').addEventListener('click',()=>{if(!generatedCard.length)return;document.body.classList.add('printing-card');setTimeout(()=>window.print(),60)});
+window.addEventListener('afterprint',()=>document.body.classList.remove('printing-card'));
+
+document.addEventListener('click',e=>{
+  const nav=e.target.closest('.navbtn'); if(nav){document.querySelectorAll('.navbtn').forEach(b=>b.classList.remove('active'));nav.classList.add('active');document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(nav.dataset.target).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});return;}
+  const choice=e.target.closest('.choice'); if(choice){const card=choice.closest('.task'); if(card.querySelector('.check').disabled)return;card.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));choice.classList.add('selected');return;}
+  const hint=e.target.closest('.hintbtn'); if(hint){hint.closest('.task').querySelector('.hint').classList.toggle('show');return;}
+  const check=e.target.closest('.check'); if(check){const card=check.closest('.task'),id=Number(card.dataset.id),t=tasks.find(x=>x.id===id),ok=isCorrect(t,card),fb=card.querySelector('.feedback'); if(ok===null){fb.className='feedback show no';fb.textContent='Сначала выберите вариант ответа.';return} card.classList.remove('correct','wrong');card.classList.add(ok?'correct':'wrong');fb.className='feedback show '+(ok?'ok':'no');fb.textContent=ok?'✓ Верно! Отлично.':'Пока неверно. Можно открыть подсказку и посмотреть разбор.';card.querySelector('.solution').classList.add('show');check.disabled=true;let val=null;if(t.type==='input')val=card.querySelector('input').value;else val=card.querySelector('.choice.selected')?.dataset.i;state[id]={done:true,correct:ok,value:val};save();return;}
+});
+
+document.getElementById('resetBtn').addEventListener('click',()=>{if(confirm('Сбросить весь прогресс тренажёра?')){localStorage.removeItem(stateKey);location.reload()}});
+tasks.forEach(restoreCard);updateStats();
+</script>
+</body>
+</html>
